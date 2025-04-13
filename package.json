@@ -1,0 +1,17 @@
+{
+  "name": "pdf-service",
+  "version": "1.0.0",
+  "description": "dockerized microservice for handling puppeteer library",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Nasiruddin Abubakar",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "html-pdf-node": "^1.0.8"
+  }
+}
