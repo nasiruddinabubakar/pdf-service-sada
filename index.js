@@ -10,14 +10,14 @@ app.use(cors({ origin: '*' }));
 app.use(bodyParser.json({ limit: '10mb' }));
 
 // 🔥 Basic PDF from root route
-app.get('/', async (req, res) => {
+app.get('/sample', async (req, res) => {
   try {
     const file = {
       content: `
         <html>
           <body style="font-family: sans-serif;">
-            <h1>Hello, my lord 👑</h1>
-            <p>This is your auto-generated PDF from the root route.</p>
+            <h1>Greetings</h1>
+            <p>This is your sample auto-generated PDF from the root route.</p>
           </body>
         </html>
       `,
@@ -32,7 +32,32 @@ app.get('/', async (req, res) => {
   }
 });
 
-// 📄 PDF generation endpoint
+// 📄 API Documentation route
+app.get('/', (req, res) => {
+  res.json({
+    name: 'HTML to PDF API',
+    version: '1.0.0',
+    description: 'Send HTML content to generate a PDF file.',
+    author:"Nasiruddin Abubakar",
+    endpoints: {
+      'POST /generate-pdf': {
+        description: 'Accepts HTML content and returns a PDF buffer.',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        requestBody: {
+          html: '<html><body><h1>Hello PDF</h1></body></html>',
+        },
+        response: 'application/pdf',
+        example: {
+          curl: `curl -X POST https://pdf-service-sada.onrender.com/generate-pdf -H "Content-Type: application/json" -d '{ "html": "<html><body><h1>Hello PDF</h1></body></html>" }' --output result.pdf`,
+        },
+      },
+    },
+  });
+});
+
+// 🧾 PDF generation endpoint
 app.post('/generate-pdf', async (req, res) => {
   try {
     const { html } = req.body;
